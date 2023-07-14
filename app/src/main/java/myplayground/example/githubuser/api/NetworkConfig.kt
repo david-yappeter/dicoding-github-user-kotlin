@@ -32,18 +32,18 @@ class NetworkConfig {
 
 interface GithubApi {
     @GET("search/users")
-    @Headers("Authorization: token <GITHUB PERSONAL ACCESS TOKEN>")
+    @Headers("Authorization: token <PERSONAL ACCESS TOKEN>")
     fun getUsers(@Query("q") username: String): Call<UserListResponse>
 
-    @GET("search/users/{username}")
-    @Headers("Authorization: token <GITHUB PERSONAL ACCESS TOKEN>")
+    @GET("users/{username}")
+    @Headers("Authorization: token <PERSONAL ACCESS TOKEN>")
     fun getUserDetail(@Path("username") username: String): Call<UserDetailResponse>
 
-    @GET("search/users/{username}/followers")
-    @Headers("Authorization: token <GITHUB PERSONAL ACCESS TOKEN>")
-    fun getUserFollowers(@Path("username") username: String): Call<UserFollowersResponse>
+    @GET("users/{username}/followers")
+    @Headers("Authorization: token <PERSONAL ACCESS TOKEN>")
+    fun getUserFollowers(@Path("username") username: String): Call<List<UserFollowersResponseItem>>
 
-    @GET("search/users/{username}/following")
-    @Headers("Authorization: token <GITHUB PERSONAL ACCESS TOKEN>")
-    fun getUserFollowing(@Path("username") username: String): Call<UserFollowingResponse>
+    @GET("users/{username}/following")
+    @Headers("Authorization: token <PERSONAL ACCESS TOKEN>")
+    fun getUserFollowing(@Path("username") username: String): Call<List<UserFollowingResponseItem>>
 }

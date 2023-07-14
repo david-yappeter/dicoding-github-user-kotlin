@@ -1,26 +1,17 @@
 package myplayground.example.githubuser.adapter
 
-import android.content.ClipData.Item
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.AsyncTask
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import myplayground.example.githubuser.GlideApp
 import myplayground.example.githubuser.R
-import myplayground.example.githubuser.UserDetailActivity
-import myplayground.example.githubuser.api.ItemsItem
+import myplayground.example.githubuser.api.UserFollowingResponseItem
 
-class UserListAdapter() : RecyclerView.Adapter<UserListAdapter.MyHolder>() {
-    private val itemLists: MutableList<ItemsItem> = mutableListOf()
+class UserDetailFollowingListAdapter() : RecyclerView.Adapter<UserDetailFollowingListAdapter.MyHolder>() {
+    private val itemLists: MutableList<UserFollowingResponseItem> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.user_row, parent, false)
@@ -33,7 +24,7 @@ class UserListAdapter() : RecyclerView.Adapter<UserListAdapter.MyHolder>() {
         holder.bind(itemLists[position])
     }
 
-    fun addData(items: List<ItemsItem>?) {
+    fun addData(items: List<UserFollowingResponseItem>?) {
         if(items != null) {
             itemLists.addAll(items)
         }
@@ -41,7 +32,7 @@ class UserListAdapter() : RecyclerView.Adapter<UserListAdapter.MyHolder>() {
         notifyDataSetChanged()
     }
 
-    fun replaceData(items: List<ItemsItem>?) {
+    fun replaceData(items: List<UserFollowingResponseItem>?) {
         if(items != null) {
             itemLists.clear()
             itemLists.addAll(items)
@@ -51,29 +42,24 @@ class UserListAdapter() : RecyclerView.Adapter<UserListAdapter.MyHolder>() {
     }
 
     fun loadEmptyData(count: Int) {
-        val l = ArrayList<ItemsItem>();
+        val l = ArrayList<UserFollowingResponseItem>();
 
         for(i in 1..count step 1) {
-            l.add(ItemsItem("","", "", "", "david", "", "", "", "", 1.0, "", "", "", "",  false, 0, "", "", ""))
+            l.add(UserFollowingResponseItem("","", "", "", "david", "", "", "", "", "", "", "", "", false,  0, "", "", ""))
         }
         replaceData(l)
-
     }
 
-    class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: ItemsItem) {
+    class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        fun bind(item: UserFollowingResponseItem) {
             GlideApp.with(itemView).load(item.avatarUrl).into(itemView.findViewById<ImageView>(R.id.iv_user))
             itemView.findViewById<TextView>(R.id.tv_user).text = item.login
 
-            itemView.setOnClickListener{
-                handleClick(item.login)
-            }
+            itemView.setOnClickListener(this)
         }
 
-        private fun handleClick(username: String) {
-            val intent = Intent(itemView.context, UserDetailActivity::class.java)
-            intent.putExtra("username", username)
-            itemView.context.startActivity(intent)
+        override fun onClick(v: View) {
+
         }
 
     }

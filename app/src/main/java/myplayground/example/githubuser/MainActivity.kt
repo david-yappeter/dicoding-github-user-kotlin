@@ -10,7 +10,7 @@ import koleton.api.loadSkeleton
 import myplayground.example.githubuser.api.NetworkConfig
 import myplayground.example.githubuser.api.UserListResponse
 import myplayground.example.githubuser.databinding.ActivityMainBinding
-import playground.example.dicoding_pokedex.adapter.UserListAdapter
+import myplayground.example.githubuser.adapter.UserListAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,8 +24,12 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+
         with(binding) {
             rvUsers.adapter = UserListAdapter()
+
+//            (rvUsers.adapter as UserListAdapter).loadEmptyData(5)
+//            rvUsers.loadSkeleton()
 
             rvUsers.layoutManager = LinearLayoutManager(this@MainActivity)
 
@@ -42,8 +46,6 @@ class MainActivity : AppCompatActivity() {
 
                     false
                 }
-
-//            loadData("david yap")
         }
     }
 
