@@ -27,7 +27,7 @@ class NetworkConfig {
         logging.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
             .addInterceptor(logging)
-            .addInterceptor(authInterceptor())
+//            .addInterceptor(authInterceptor())
             .build()
     }
 
