@@ -17,6 +17,7 @@
         <activity
             android:name=".UserDetailActivity"
             android:exported="false"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_user_detail"
             android:theme="@style/Theme.GithubUser" />
         <activity

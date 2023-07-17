@@ -6,8 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import myplayground.example.githubuser.UserFollowersFragment
 import myplayground.example.githubuser.UserFollowingFragment
 
-class SectionPagerAdapter(activity: AppCompatActivity, username: String): FragmentStateAdapter(activity) {
-    private val username = username
+class SectionPagerAdapter(activity: AppCompatActivity, private val username: String): FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {
         return 2
     }
@@ -17,11 +16,11 @@ class SectionPagerAdapter(activity: AppCompatActivity, username: String): Fragme
         when(position) {
             0 -> {
                 fragment = UserFollowersFragment()
-                (fragment as UserFollowersFragment).username = username
+                fragment.username = username
             }
             1 -> {
                 fragment = UserFollowingFragment()
-                (fragment as UserFollowingFragment).username = username
+                fragment.username = username
             }
             else -> {}
         }

@@ -33,6 +33,7 @@ class UserFollowersFragment : Fragment() {
 
         with(binding) {
             rvFollower.adapter = UserDetailFollowerListAdapter()
+            rvFollower.stopScroll()
             rvFollower.layoutManager = LinearLayoutManager(view.context)
         }
 

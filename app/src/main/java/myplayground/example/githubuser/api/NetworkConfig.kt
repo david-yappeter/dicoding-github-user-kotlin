@@ -1,5 +1,6 @@
 package myplayground.example.githubuser.api
 
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -11,11 +12,22 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 class NetworkConfig {
+    private fun authInterceptor(): Interceptor {
+        return Interceptor {chain ->
+            val req = chain.request()
+            val requestHeaders = req.newBuilder()
+                .addHeader("Authorization", "token <PERSONAL ACCESS TOKEN>").
+                    build()
+            chain.proceed(requestHeaders)
+        }
+    }
+
     private fun getInterceptor(): OkHttpClient {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
             .addInterceptor(logging)
+            .addInterceptor(authInterceptor())
             .build()
     }
 
@@ -32,18 +44,14 @@ class NetworkConfig {
 
 interface GithubApi {
     @GET("search/users")
-    @Headers("Authorization: token <PERSONAL ACCESS TOKEN>")
     fun getUsers(@Query("q") username: String): Call<UserListResponse>
 
     @GET("users/{username}")
-    @Headers("Authorization: token <PERSONAL ACCESS TOKEN>")
     fun getUserDetail(@Path("username") username: String): Call<UserDetailResponse>
 
     @GET("users/{username}/followers")
-    @Headers("Authorization: token <PERSONAL ACCESS TOKEN>")
     fun getUserFollowers(@Path("username") username: String): Call<List<UserFollowersResponseItem>>
 
     @GET("users/{username}/following")
-    @Headers("Authorization: token <PERSONAL ACCESS TOKEN>")
     fun getUserFollowing(@Path("username") username: String): Call<List<UserFollowingResponseItem>>
 }
