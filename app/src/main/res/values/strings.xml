@@ -50,4 +50,6 @@
     <string name="user_detail_tabs">User detail tabs</string>
     <string name="user_detail_tab_text_1">Followers</string>
     <string name="user_detail_tab_text_2">Following</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
 </resources>

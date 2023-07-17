@@ -4,24 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ll_user_detail"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:paddingTop="40dp"
             android:paddingBottom="20dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:background="@color/primary">
             <androidx.cardview.widget.CardView
+                android:id="@+id/cv_user"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="2000dp"
-                android:layout_marginBottom="12dp">
+                android:paddingBottom="12dp">
                 <ImageView
                     android:id="@+id/iv_user"
                     android:layout_width="140dp"
@@ -31,23 +36,90 @@
             </androidx.cardview.widget.CardView>
             <TextView
                 android:id="@+id/tv_user_name"
+                app:layout_constraintTop_toBottomOf="@+id/cv_user"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:textSize="20sp"
+                android:paddingBottom="12dp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 tools:text="David Yappeter"/>
             <TextView
                 android:id="@+id/tv_github_user_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_user_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:textSize="18sp"
+                android:paddingBottom="12dp"
+                android:textSize="20sp"
                 android:textColor="@color/secondary"
                 tools:text="david-yappeter"/>
-        </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_stats"
+                app:layout_constraintTop_toBottomOf="@+id/tv_github_user_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_github_follower_count"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_github_follower_count_label"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_github_follower_count_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    tools:text="12"/>
+                <TextView
+                    android:id="@+id/tv_github_follower_count_label"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_github_follower_count"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_github_following_count_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/secondary"
+                    android:text="@string/followers"/>
+
+                <TextView
+                    android:id="@+id/tv_github_following_count"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_github_following_count_label"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_github_following_count_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    tools:text="24"/>
+                <TextView
+                    android:id="@+id/tv_github_following_count_label"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_github_follower_count"
+                    app:layout_constraintStart_toEndOf="@+id/tv_github_follower_count_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/secondary"
+                    android:text="@string/following"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <LinearLayout
+            app:layout_constraintTop_toBottomOf="@+id/ll_user_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -67,5 +139,5 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

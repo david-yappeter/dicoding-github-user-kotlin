@@ -97,6 +97,8 @@ class UserDetailActivity : AppCompatActivity() {
                         GlideApp.with(this@UserDetailActivity).load(dataResponse.avatarUrl).into(binding.ivUser)
                         binding.tvUserName.text = dataResponse.name
                         binding.tvGithubUserName.text = dataResponse.login
+                        binding.tvGithubFollowerCount.text = dataResponse.followers.toString()
+                        binding.tvGithubFollowingCount.text = dataResponse.following.toString()
                         actionbar.title = dataResponse.name
                     } else {
                         Toast.makeText(this@UserDetailActivity, "Failed to load data", Toast.LENGTH_SHORT).show()
