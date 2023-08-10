@@ -1,0 +1,34 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.GithubSearch" parent="Theme.Material3.Light">
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryVariant">@color/green_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/blue</item>
+        <item name="colorSecondaryVariant">@color/blue_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+
+        <!-- Customize your light theme here. -->
+        <!--<item name="colorPrimary">@color/primary</item>-->
+        <!--<item name="colorOnPrimary">@color/black</item>-->
+        <!--<item name="colorSecondary">@color/secondary</item>-->
+        <!--<item name="android:colorBackground">@color/white</item>-->
+        <!--<item name="android:textColorPrimary">@color/green</item>-->
+    </style>
+
+    <style name="Theme.GithubSearch" parent="Base.Theme.GithubSearch">
+    </style>
+
+    <style name="Theme.GithubSplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/black</item>
+        <item name="windowSplashScreenAnimatedIcon">@raw/logo_lottie</item>
+        <item name="windowSplashScreenAnimationDuration">3000</item>
+        <item name="postSplashScreenTheme">@style/Theme.GithubSearch</item>
+    </style>
+</resources>

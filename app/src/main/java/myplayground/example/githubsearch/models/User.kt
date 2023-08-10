@@ -1,0 +1,63 @@
+package myplayground.example.githubsearch.models
+
+data class User(
+    val id: String,
+    val login: String,
+    val node_id: String,
+    val avatar_url: String,
+    val gravatar_id: String,
+    val url: String,
+    val html_url: String,
+    val followers_url: String,
+    val following_url: String,
+    val gists_url: String,
+    val starred_url: String,
+    val subscriptions_url: String,
+    val organizations_url: String,
+    val repos_url: String,
+    val events_url: String,
+    val received_events_url: String,
+    val type: String,
+    val site_admin: Boolean,
+    val name: String?,
+    val public_repos: Int?,
+    val public_gists: Int?,
+    val followers: Int?,
+    val following: Int?,
+    val created_at: String?,
+    val updated_at: String?,
+    val score: Float?,
+) {
+    companion object {
+        fun fromUserResponse(resp: UserResponse): User {
+            return User(
+                id =  resp.id,
+                login = resp.login,
+                node_id = resp.node_id,
+                avatar_url = resp.avatar_url,
+                gravatar_id = resp.gravatar_id,
+                url = resp.url,
+                html_url = resp.html_url,
+                followers_url = resp.followers_url,
+                following_url = resp.following_url,
+                gists_url = resp.gists_url,
+                starred_url = resp.starred_url,
+                subscriptions_url = resp.subscriptions_url,
+                organizations_url = resp.organizations_url,
+                repos_url = resp.repos_url,
+                events_url = resp.events_url,
+                received_events_url = resp.received_events_url,
+                type = resp.type,
+                site_admin = resp.site_admin,
+                name = resp.name,
+                public_repos = resp.public_repos,
+                public_gists = resp.public_gists,
+                followers = resp.followers,
+                following = resp.following,
+                created_at = resp.created_at,
+                updated_at = resp.updated_at,
+                score = resp.score,
+            )
+        }
+    }
+}

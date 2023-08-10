@@ -1,0 +1,84 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'myplayground.example.githubsearch'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "myplayground.example.githubsearch"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+    def room_version = '2.5.2'
+    def ktx_core_version = '1.10.1'
+    def lottie_version = '6.1.0'
+    def retrofit_version = '2.6.2'
+
+    // dotenv
+    implementation 'io.github.cdimascio:dotenv-kotlin:6.4.1'
+
+    // material tap target prompt
+    implementation 'uk.co.samuelwall:material-tap-target-prompt:3.3.2'
+
+    // splashscreen
+    implementation 'androidx.core:core-splashscreen:1.0.1'
+
+    // lottie implementation
+    implementation "com.airbnb.android:lottie:${lottie_version}"
+
+    // room lifecycle dependencies
+    implementation "androidx.room:room-runtime:${room_version}"
+    kapt "androidx.room:room-compiler:${room_version}"
+
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit:${retrofit_version}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofit_version}"
+    implementation("com.squareup.okhttp3:logging-interceptor:4.2.0")
+
+    // coroutine support for room
+    implementation "androidx.room:room-ktx:${room_version}"
+
+    // circle imageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    implementation "androidx.core:core-ktx:${ktx_core_version}"
+
+    kapt 'com.github.bumptech.glide:compiler:4.14.2'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
