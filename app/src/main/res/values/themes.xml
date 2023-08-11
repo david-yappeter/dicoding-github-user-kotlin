@@ -47,6 +47,10 @@
     <!--  text appearance  -->
     <style name="text_label" parent="TextAppearance.Material3.LabelLarge">
     </style>
+    <style name="text_desc" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textColor">@color/subtitle</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
 
     <style name="title1" parent="TextAppearance.Material3.TitleLarge">
     </style>
