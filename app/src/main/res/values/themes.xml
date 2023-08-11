@@ -1,34 +1,60 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.GithubSearch" parent="Theme.Material3.Light">
-
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryVariant">@color/green_dark</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/blue</item>
-        <item name="colorSecondaryVariant">@color/blue_dark</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-
+    <style name="Base.Theme.GithubSearch" parent="Theme.Material3.Dark">
 
         <!-- Customize your light theme here. -->
-        <!--<item name="colorPrimary">@color/primary</item>-->
-        <!--<item name="colorOnPrimary">@color/black</item>-->
-        <!--<item name="colorSecondary">@color/secondary</item>-->
-        <!--<item name="android:colorBackground">@color/white</item>-->
-        <!--<item name="android:textColorPrimary">@color/green</item>-->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="android:colorBackground">@color/white</item>
+
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textColorPrimary">@color/primary</item>
+        <item name="android:textColorSecondary">@color/secondary</item>
+
+        <item name="actionBarStyle">@style/AppActionBarStyle</item>
+        <item name="materialSearchBarStyle">@style/MaterialSearchBar</item>
     </style>
 
     <style name="Theme.GithubSearch" parent="Base.Theme.GithubSearch">
     </style>
 
+    <!-- splash screen -->
     <style name="Theme.GithubSplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/black</item>
         <item name="windowSplashScreenAnimatedIcon">@raw/logo_lottie</item>
         <item name="windowSplashScreenAnimationDuration">3000</item>
         <item name="postSplashScreenTheme">@style/Theme.GithubSearch</item>
     </style>
+
+    <!--  appbar  -->
+    <style name="AppActionBarStyle" parent="Widget.Material3.ActionBar.Solid">
+        <item name="titleTextStyle">@style/AppTitleTextStyle</item>
+        <item name="subtitleTextStyle">@style/AppSubtitleTextStyle</item>
+    </style>
+    <style name="AppTitleTextStyle" parent="TextAppearance.Material3.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="AppSubtitleTextStyle" parent="TextAppearance.Material3.ActionBar.Subtitle">
+        <item name="android:textColor">@color/light_gray</item>
+    </style>
+
+    <!--  material search bar  -->
+    <style name="MaterialSearchBar" parent="Widget.Material3.SearchBar">
+        <item name="queryBackground">@color/white</item>
+    </style>
+
+    <!--  text appearance  -->
+    <style name="text_label" parent="TextAppearance.Material3.LabelLarge">
+    </style>
+
+    <style name="title1" parent="TextAppearance.Material3.TitleLarge">
+    </style>
+    <style name="subtitle1" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@color/subtitle</item>
+    </style>
+    <style name="anchor1" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textColor">@color/link</item>
+    </style>
+
 </resources>

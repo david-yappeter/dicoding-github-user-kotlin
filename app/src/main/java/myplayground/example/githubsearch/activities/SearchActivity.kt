@@ -2,6 +2,7 @@ package myplayground.example.githubsearch.activities
 
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.animation.AnticipateInterpolator
@@ -25,7 +26,7 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.RectanglePromptBackground
 import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFocal
 
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : DrawerActivity() {
     private lateinit var binding: ActivitySearchBinding
 
     override fun onCreate(savedInstanceState: Bundle?) { // initialize splash screen
@@ -39,18 +40,22 @@ class SearchActivity : AppCompatActivity() {
         setupAdapter()
         setupSearchBar()
         showPrompt()
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
     }
 
     private fun setupAdapter() {
         with(binding) {
-
-
-            rvUsers.adapter = UserListAdapter {
+            rvUsers.adapter = UserListAdapter { user ->
                 val intent = Intent(this@SearchActivity, UserDetailActivity::class.java)
-                intent.putExtra()
+                intent.putExtra(UserDetailActivity.INTENT_KEY_ID, user.id)
+                intent.putExtra(UserDetailActivity.INTENT_KEY_LOGIN, user.login)
+                intent.putExtra(UserDetailActivity.INTENT_KEY_AVATAR_URL, user.avatar_url)
                 startActivity(intent)
             }
+
             rvUsers.layoutManager = LinearLayoutManager(this@SearchActivity)
+
             rvUsers.addItemDecoration(
                 DividerItemDecoration(
                     this@SearchActivity,
@@ -68,7 +73,6 @@ class SearchActivity : AppCompatActivity() {
                 svUser.hide()
                 loadData(svUser.text.toString()) //                Toast.makeText(this@MenuActivity, searchView.text, Toast.LENGTH_SHORT).show()
                 false
-
             }
         }
     }
@@ -88,6 +92,8 @@ class SearchActivity : AppCompatActivity() {
                         (binding.rvUsers.adapter as? UserListAdapter)?.apply {
                             setData(body.items.map { item -> User.fromUserResponse(item) })
                         }
+                    } else {
+                        TODO("not implemented")
                     }
                 }
             })

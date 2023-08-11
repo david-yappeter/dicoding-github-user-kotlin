@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">GithubSearch</string>
+    <string name="app_name">Github</string>
     <string name="search_users">Search Users</string>
     <string name="search_user">Search User</string>
+    <string name="followers">Followers</string>
+    <string name="followings">Followings</string>
 </resources>

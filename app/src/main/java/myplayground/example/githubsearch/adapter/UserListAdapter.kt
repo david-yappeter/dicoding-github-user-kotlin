@@ -12,7 +12,8 @@ import de.hdodenhof.circleimageview.CircleImageView
 import myplayground.example.githubsearch.R
 import myplayground.example.githubsearch.models.User
 
-class UserListAdapter(private val onClickListener: () -> Unit = {->}) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
+class UserListAdapter(private val onClickListener: (user: User) -> Unit = { _ -> }) :
+    RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
     private val usersList: MutableList<User> = mutableListOf()
 
 
@@ -36,20 +37,24 @@ class UserListAdapter(private val onClickListener: () -> Unit = {->}) : Recycler
         }
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(user: User) {
-            Glide.with(itemView).load(user.avatar_url).into(itemView.findViewById<CircleImageView>(R.id.iv_user))
+            Glide.with(itemView).load(user.avatar_url)
+                .into(itemView.findViewById<CircleImageView>(R.id.iv_user))
             itemView.findViewById<TextView>(R.id.tv_name).text = user.login
 
-            itemView.setOnClickListener(this)
+            itemView.setOnClickListener {
+                onClick(itemView, user)
+            }
         }
 
-        override fun onClick(v: View) {
-            when(v.id) {
-                R.id.cl_user->{
-                    onClickListener()
+        private fun onClick(v: View, user: User) {
+            when (v.id) {
+                R.id.cl_user -> {
+                    onClickListener(user)
                 }
-                else->{}
+
+                else -> {}
             }
         }
     }
