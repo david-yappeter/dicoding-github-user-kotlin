@@ -18,13 +18,13 @@ interface GithubService {
         @Path("login") login: String,
     ): Call<UserResponse>
 
-    @GET("users/{login}/following")
+    @GET("users/{login}/followings")
     fun getUserFollowing(
         @Path("login") login: String,
-    ): Call<UserResponse>
+    ): Call<List<UserResponse>>
 
-    @GET("users/{login}/follower")
+    @GET("users/{login}/followers")
     fun getUserFollower(
         @Path("login") login: String,
-    ): Call<UserResponse>
+    ): Call<List<UserResponse>>
 }

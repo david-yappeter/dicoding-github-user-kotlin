@@ -1,7 +1,16 @@
 package myplayground.example.githubsearch.activities
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Gravity
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import myplayground.example.githubsearch.R
+import myplayground.example.githubsearch.adapter.SectionPagerAdapter
 import myplayground.example.githubsearch.databinding.ActivityUserDetailBinding
 import myplayground.example.githubsearch.models.User
 import myplayground.example.githubsearch.models.UserResponse
@@ -37,8 +46,29 @@ class UserDetailActivity : DrawerActivity() {
 
         changeAppbarTitle(login.lowercase().replaceFirstChar { it.titlecase() })
         fillView()
+        loadTab()
 
         loadData()
+    }
+
+    private fun loadTab() {
+        val TAB_TITLES = arrayOf("Followers", "Following")
+        val sectionPagerAdapter = SectionPagerAdapter(this, login)
+        val viewPager: ViewPager2 = binding.viewPager
+        viewPager.adapter = sectionPagerAdapter
+        val tabs: TabLayout = binding.tabs
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
+            val customTab = TextView(this)
+            customTab.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            customTab.text = TAB_TITLES[position]
+            customTab.gravity = Gravity.CENTER
+            customTab.textSize = 20f
+            customTab.setTextColor(resources.getColor(R.color.white))
+            tab.customView = customTab
+        }.attach()
     }
 
     private fun loadData() {
@@ -52,7 +82,7 @@ class UserDetailActivity : DrawerActivity() {
                     call: Call<UserResponse>,
                     response: Response<UserResponse>
                 ) {
-                    if(response.isSuccessful) {
+                    if (response.isSuccessful) {
                         val body = response.body()!!
                         user = User.fromUserResponse(body)
                         fillView()
@@ -68,8 +98,9 @@ class UserDetailActivity : DrawerActivity() {
             Glide.with(this@UserDetailActivity).load(avatarUrl).into(binding.cvUser)
             tvUsername.text = login
 
-            if(user != null) {
-                val nameCapitalized = user?.name?.lowercase()?.replaceFirstChar { it.titlecase() } ?: "-"
+            if (user != null) {
+                val nameCapitalized =
+                    user?.name?.lowercase()?.replaceFirstChar { it.titlecase() } ?: "-"
                 changeAppbarTitle(nameCapitalized)
 
                 tvName.text = nameCapitalized

@@ -29,8 +29,9 @@ import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFoc
 class SearchActivity : DrawerActivity() {
     private lateinit var binding: ActivitySearchBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) { // initialize splash screen
-        initSplashScreen()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // initialize splash screen
+//        initSplashScreen()
 
         binding = ActivitySearchBinding.inflate(layoutInflater)
 

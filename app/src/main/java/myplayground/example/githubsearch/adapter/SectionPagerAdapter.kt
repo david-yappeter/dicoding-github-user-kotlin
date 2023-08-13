@@ -1,27 +1,30 @@
-package myplayground.example.githubuser.pager
+package myplayground.example.githubsearch.adapter
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import myplayground.example.githubuser.UserFollowersFragment
-import myplayground.example.githubuser.UserFollowingFragment
+import myplayground.example.githubsearch.activities.FragmentUserFollowers
 
-class SectionPagerAdapter(activity: AppCompatActivity, private val username: String): FragmentStateAdapter(activity) {
+class SectionPagerAdapter(activity: AppCompatActivity, private val username: String) :
+    FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {
         return 2
     }
 
     override fun createFragment(position: Int): Fragment {
         var fragment: Fragment? = null
-        when(position) {
+        when (position) {
             0 -> {
-//                fragment = UserFollowersFragment()
-//                fragment.username = username
+                fragment = FragmentUserFollowers()
+                fragment.username = username
             }
+
             1 -> {
+                fragment = FragmentUserFollowers()
 //                fragment = UserFollowingFragment()
-//                fragment.username = username
+                fragment.username = username
             }
+
             else -> {}
         }
         return fragment as Fragment
