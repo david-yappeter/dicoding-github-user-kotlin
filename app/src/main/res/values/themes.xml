@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.GithubSearch" parent="Theme.Material3.Dark">
 
@@ -14,17 +14,6 @@
 
         <item name="actionBarStyle">@style/AppActionBarStyle</item>
         <item name="materialSearchBarStyle">@style/MaterialSearchBar</item>
-    </style>
-
-    <style name="Theme.GithubSearch" parent="Base.Theme.GithubSearch">
-    </style>
-
-    <!-- splash screen -->
-    <style name="Theme.GithubSplashScreen" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/black</item>
-        <item name="windowSplashScreenAnimatedIcon">@raw/logo_lottie</item>
-        <item name="windowSplashScreenAnimationDuration">3000</item>
-        <item name="postSplashScreenTheme">@style/Theme.GithubSearch</item>
     </style>
 
     <!--  appbar  -->

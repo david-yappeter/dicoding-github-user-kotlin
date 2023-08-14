@@ -14,7 +14,7 @@ open class DrawerActivity : AppCompatActivity() {
 
     override fun setContentView(view: View) {
         // wrap view inside frame layout
-        fullLayout = layoutInflater.inflate(R.layout.activity_drawer, null) as DrawerLayout
+        fullLayout = View.inflate(this, R.layout.activity_drawer,  null) as DrawerLayout
         frameLayout = fullLayout.findViewById(R.id.drawer_frame)
 
         frameLayout.addView(view)

@@ -18,7 +18,7 @@ interface GithubService {
         @Path("login") login: String,
     ): Call<UserResponse>
 
-    @GET("users/{login}/followings")
+    @GET("users/{login}/following")
     fun getUserFollowing(
         @Path("login") login: String,
     ): Call<List<UserResponse>>

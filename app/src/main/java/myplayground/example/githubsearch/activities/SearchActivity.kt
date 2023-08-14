@@ -1,15 +1,9 @@
 package myplayground.example.githubsearch.activities
 
-import android.animation.ObjectAnimator
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
-import android.view.animation.AnticipateInterpolator
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
-import androidx.core.animation.doOnEnd
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import myplayground.example.githubsearch.R
@@ -30,9 +24,6 @@ class SearchActivity : DrawerActivity() {
     private lateinit var binding: ActivitySearchBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // initialize splash screen
-//        initSplashScreen()
-
         binding = ActivitySearchBinding.inflate(layoutInflater)
 
         super.onCreate(savedInstanceState)
@@ -69,7 +60,7 @@ class SearchActivity : DrawerActivity() {
     private fun setupSearchBar() {
         with(binding) {
             svUser.setupWithSearchBar(sbUser)
-            svUser.editText.setOnEditorActionListener { textView, actionId, event ->
+            svUser.editText.setOnEditorActionListener { _, _, _ ->
                 sbUser.text = svUser.text
                 svUser.hide()
                 loadData(svUser.text.toString()) //                Toast.makeText(this@MenuActivity, searchView.text, Toast.LENGTH_SHORT).show()
@@ -79,51 +70,59 @@ class SearchActivity : DrawerActivity() {
     }
 
     private fun loadData(search: String) {
-        NetworkConfig.Create<GithubService>(NetworkConfig.GITHUB_SERVICE_BASE_URL)
+        setLoadingAnimation(true)
+        NetworkConfig.create<GithubService>(NetworkConfig.GITHUB_SERVICE_BASE_URL)
             .searchUsers(search).enqueue(object : Callback<UserListResponse> {
                 override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    setLoadingAnimation(false)
+                    Toast.makeText(this@SearchActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onResponse(
                     call: Call<UserListResponse>, response: Response<UserListResponse>
                 ) {
+                    setLoadingAnimation(false)
                     if (response.isSuccessful) {
                         val body = response.body()!!
+
+                        if(body.items.isEmpty()) {
+                            setNotData()
+                            return
+                        }
+
                         (binding.rvUsers.adapter as? UserListAdapter)?.apply {
                             setData(body.items.map { item -> User.fromUserResponse(item) })
                         }
                     } else {
-                        TODO("not implemented")
+                        Toast.makeText(this@SearchActivity, "FAILED TO DO REQUEST", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
             })
     }
 
-    private fun initSplashScreen() {
-        val splashScreen = installSplashScreen()
-
-        splashScreen.setOnExitAnimationListener { splashScreenView -> // Create fade out animation
-            val slideUp = ObjectAnimator.ofFloat(
-                splashScreenView.view,
-                "alpha",
-                1f,
-                0f,
-            )
-            slideUp.interpolator = AnticipateInterpolator()
-            slideUp.duration = 300L
-
-            // Call SplashScreenView.remove at the end of your custom animation.
-            slideUp.doOnEnd { splashScreenView.remove() }
-
-            // Run your animation.
-            slideUp.start()
+    private fun setLoadingAnimation(v: Boolean) {
+        if (v) {
+            binding.rvUsers.visibility = View.GONE
+            binding.noData.visibility = View.GONE
+            binding.idle.visibility = View.GONE
+            binding.loading.visibility = View.VISIBLE
+        } else {
+            binding.loading.visibility = View.GONE
+            binding.rvUsers.visibility = View.VISIBLE
         }
+    }
+
+    private fun setNotData() {
+        binding.noData.visibility = View.VISIBLE
     }
 
     private fun showPrompt() {
         MaterialTapTargetPrompt.Builder(this).setTarget(binding.sbUser)
-            .setPrimaryText("Search Github User").setBackButtonDismissEnabled(true)
+            .setPrimaryText("Welcome to Github Search")
+            .setSecondaryText("Let's try to search your first user")
+            .setBackButtonDismissEnabled(true)
+            .setBackgroundColour(resources.getColor(R.color.green))
             .setPromptBackground(RectanglePromptBackground()).setPromptFocal(RectanglePromptFocal())
             .show()
     }

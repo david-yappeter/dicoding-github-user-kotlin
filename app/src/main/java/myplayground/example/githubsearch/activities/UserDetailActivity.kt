@@ -1,15 +1,11 @@
 package myplayground.example.githubsearch.activities
 
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Gravity
-import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import myplayground.example.githubsearch.R
 import myplayground.example.githubsearch.adapter.SectionPagerAdapter
 import myplayground.example.githubsearch.databinding.ActivityUserDetailBinding
 import myplayground.example.githubsearch.models.User
@@ -52,30 +48,21 @@ class UserDetailActivity : DrawerActivity() {
     }
 
     private fun loadTab() {
-        val TAB_TITLES = arrayOf("Followers", "Following")
+        val tabTitles = arrayOf("Followers", "Following")
         val sectionPagerAdapter = SectionPagerAdapter(this, login)
         val viewPager: ViewPager2 = binding.viewPager
         viewPager.adapter = sectionPagerAdapter
         val tabs: TabLayout = binding.tabs
         TabLayoutMediator(tabs, viewPager) { tab, position ->
-            val customTab = TextView(this)
-            customTab.layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            customTab.text = TAB_TITLES[position]
-            customTab.gravity = Gravity.CENTER
-            customTab.textSize = 20f
-            customTab.setTextColor(resources.getColor(R.color.white))
-            tab.customView = customTab
+            tab.text = tabTitles[position]
         }.attach()
     }
 
     private fun loadData() {
-        NetworkConfig.Create<GithubService>(NetworkConfig.GITHUB_SERVICE_BASE_URL).getUser(login)
+        NetworkConfig.create<GithubService>(NetworkConfig.GITHUB_SERVICE_BASE_URL).getUser(login)
             .enqueue(object : Callback<UserResponse> {
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(this@UserDetailActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onResponse(
@@ -87,11 +74,13 @@ class UserDetailActivity : DrawerActivity() {
                         user = User.fromUserResponse(body)
                         fillView()
                     } else {
-                        TODO("not implemented")
+                        Toast.makeText(this@UserDetailActivity, "FAILED TO DO REQUEST", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
             })
     }
+
 
     private fun fillView() {
         with(binding) {
@@ -106,7 +95,7 @@ class UserDetailActivity : DrawerActivity() {
                 tvName.text = nameCapitalized
                 tvBlog.text = user?.blog ?: "-"
                 tvBio.text = user?.bio ?: "-"
-                tvLocation.text = user?.location?.toString() ?: "-"
+                tvLocation.text = user?.location ?: "-"
                 tvFollowers.text = user?.followers?.toString() ?: "-"
                 tvFollowings.text = user?.following?.toString() ?: "-"
             }

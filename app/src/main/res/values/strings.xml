@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">Github</string>
     <string name="search_users">Search Users</string>
-    <string name="search_user">Search User</string>
     <string name="followers">Followers</string>
     <string name="followings">Followings</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="user_tabs">User tabs</string>
+    <string name="user_tabs">User Tabs</string>
+    <string name="no_data">No Data</string>
+    <string name="user_search_bar">User Search Bar</string>
 </resources>

@@ -18,7 +18,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class FragmentUserFollowers : Fragment() {
+class FragmentUserFollowing : Fragment() {
     private var _binding: FragmentUserFollowBinding? = null
     private val binding get() = _binding!!
 
@@ -46,10 +46,9 @@ class FragmentUserFollowers : Fragment() {
 
     private fun loadData() {
         setLoadingAnimation(true)
-
         with(binding) {
             NetworkConfig.create<GithubService>(NetworkConfig.GITHUB_SERVICE_BASE_URL)
-                .getUserFollower(username!!)
+                .getUserFollowing(username!!)
                 .enqueue(object : Callback<List<UserResponse>> {
                     override fun onFailure(call: Call<List<UserResponse>>, t: Throwable) {
                         setLoadingAnimation(false)
