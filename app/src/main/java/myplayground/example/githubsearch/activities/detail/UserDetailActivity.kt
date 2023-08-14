@@ -1,30 +1,25 @@
-package myplayground.example.githubsearch.activities
+package myplayground.example.githubsearch.activities.detail
 
+import android.content.res.Configuration
 import android.os.Bundle
-import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import myplayground.example.githubsearch.activities.drawer.DrawerActivity
 import myplayground.example.githubsearch.adapter.SectionPagerAdapter
 import myplayground.example.githubsearch.databinding.ActivityUserDetailBinding
 import myplayground.example.githubsearch.models.User
-import myplayground.example.githubsearch.models.UserResponse
-import myplayground.example.githubsearch.network.GithubService
-import myplayground.example.githubsearch.network.NetworkConfig
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class UserDetailActivity : DrawerActivity() {
     private lateinit var binding: ActivityUserDetailBinding
-    private lateinit var id: String
+
     private lateinit var login: String
     private lateinit var avatarUrl: String
     private var user: User? = null
 
     companion object {
-        const val INTENT_KEY_ID = "USER_DETAIL_ID"
         const val INTENT_KEY_LOGIN = "USER_DETAIL_LOGIN"
         const val INTENT_KEY_AVATAR_URL = "USER_DETAIL_AVATAR_URL"
     }
@@ -32,7 +27,6 @@ class UserDetailActivity : DrawerActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
 
-        id = intent.getStringExtra(INTENT_KEY_ID)!!
         login = intent.getStringExtra(INTENT_KEY_LOGIN)!!
         avatarUrl = intent.getStringExtra(INTENT_KEY_AVATAR_URL)!!
 
@@ -41,10 +35,24 @@ class UserDetailActivity : DrawerActivity() {
 
 
         changeAppbarTitle(login.lowercase().replaceFirstChar { it.titlecase() })
+        handleOrientationChanged(this.resources.configuration.orientation)
         fillView()
         loadTab()
 
         loadData()
+    }
+
+    private fun loadData() {
+        val viewModel: UserDetailViewModel by viewModels {
+            UserDetailViewModelFactory(login)
+        }
+
+        viewModel.user.observe(this@UserDetailActivity) { userObs ->
+            if (userObs != null) {
+                user = userObs
+                fillView()
+            }
+        }
     }
 
     private fun loadTab() {
@@ -57,30 +65,6 @@ class UserDetailActivity : DrawerActivity() {
             tab.text = tabTitles[position]
         }.attach()
     }
-
-    private fun loadData() {
-        NetworkConfig.create<GithubService>(NetworkConfig.GITHUB_SERVICE_BASE_URL).getUser(login)
-            .enqueue(object : Callback<UserResponse> {
-                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                    Toast.makeText(this@UserDetailActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onResponse(
-                    call: Call<UserResponse>,
-                    response: Response<UserResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val body = response.body()!!
-                        user = User.fromUserResponse(body)
-                        fillView()
-                    } else {
-                        Toast.makeText(this@UserDetailActivity, "FAILED TO DO REQUEST", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
-            })
-    }
-
 
     private fun fillView() {
         with(binding) {
@@ -102,6 +86,28 @@ class UserDetailActivity : DrawerActivity() {
         }
     }
 
+    private fun handleOrientationChanged(orientation: Int) {
+        val layoutParams = binding.viewPager.layoutParams
+        var heightInDp = 0
+
+        when (orientation) {
+            Configuration.ORIENTATION_LANDSCAPE -> {
+                heightInDp = 200
+            }
+
+            Configuration.ORIENTATION_PORTRAIT -> {
+                heightInDp = 0
+            }
+        }
+
+        // Convert dp to pixels based on device's screen density
+        val density = resources.displayMetrics.density
+        val heightInPixel = (heightInDp * density).toInt()
+
+        layoutParams.height = heightInPixel
+        binding.viewPager.layoutParams = layoutParams
+    }
+
     private fun changeAppbarTitle(title: String) {
         val actionbar = supportActionBar!!
         actionbar.title = title
@@ -110,5 +116,11 @@ class UserDetailActivity : DrawerActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()
         return true
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        handleOrientationChanged(newConfig.orientation)
     }
 }

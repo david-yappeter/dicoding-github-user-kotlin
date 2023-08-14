@@ -20,7 +20,7 @@ class UserListAdapter(private val onClickListener: (user: User) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.user_row, parent, false)
-        return ViewHolder(v)
+        return ViewHolder(v, onClickListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -36,7 +36,7 @@ class UserListAdapter(private val onClickListener: (user: User) -> Unit) :
         }
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View, val onClickListener: (user: User) -> Unit) : RecyclerView.ViewHolder(itemView) {
         fun bind(user: User) {
             Glide.with(itemView).load(user.avatar_url)
                 .into(itemView.findViewById<CircleImageView>(R.id.iv_user))

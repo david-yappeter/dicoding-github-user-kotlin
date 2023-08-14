@@ -1,4 +1,4 @@
-package myplayground.example.githubsearch.activities
+package myplayground.example.githubsearch.activities.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,7 +18,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class FragmentUserFollowers : Fragment() {
+class FragmentUserFollowing : Fragment() {
     private var _binding: FragmentUserFollowBinding? = null
     private val binding get() = _binding!!
 
@@ -46,18 +46,17 @@ class FragmentUserFollowers : Fragment() {
 
     private fun loadData() {
         setLoadingAnimation(true)
-
         with(binding) {
             NetworkConfig.create<GithubService>(NetworkConfig.GITHUB_SERVICE_BASE_URL)
-                .getUserFollower(username!!)
+                .getUserFollowing(username!!)
                 .enqueue(object : Callback<List<UserResponse>> {
-                    override fun onFailure(call: Call<List<UserResponse>>, t: Throwable) {
+                    override fun onFailure(ignoredCall: Call<List<UserResponse>>, t: Throwable) {
                         setLoadingAnimation(false)
                         Toast.makeText(context, t.localizedMessage, Toast.LENGTH_SHORT).show()
                     }
 
                     override fun onResponse(
-                        call: Call<List<UserResponse>>,
+                        ignoredCall: Call<List<UserResponse>>,
                         response: Response<List<UserResponse>>
                     ) {
                         setLoadingAnimation(false)

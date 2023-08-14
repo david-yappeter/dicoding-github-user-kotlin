@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SearchActivity">
+    tools:context=".activities.search.SearchActivity">
 
     <com.google.android.material.search.SearchBar
         android:id="@+id/sb_user"
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
+        android:hint="@string/user_search_bar"
         android:contentDescription="@string/user_search_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,5 +1,6 @@
-package myplayground.example.githubsearch.activities
+package myplayground.example.githubsearch.activities.drawer
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -12,9 +13,10 @@ open class DrawerActivity : AppCompatActivity() {
     private lateinit var fullLayout: DrawerLayout
     private lateinit var frameLayout: FrameLayout
 
+    @SuppressLint("InflateParams")
     override fun setContentView(view: View) {
         // wrap view inside frame layout
-        fullLayout = View.inflate(this, R.layout.activity_drawer,  null) as DrawerLayout
+        fullLayout = layoutInflater.inflate(R.layout.activity_drawer, null) as DrawerLayout
         frameLayout = fullLayout.findViewById(R.id.drawer_frame)
 
         frameLayout.addView(view)

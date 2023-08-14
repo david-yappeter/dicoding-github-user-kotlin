@@ -14,9 +14,9 @@ interface GithubService {
     ): Call<UserListResponse>
 
     @GET("users/{login}")
-    fun getUser(
+    suspend fun getUserAsync(
         @Path("login") login: String,
-    ): Call<UserResponse>
+    ): UserResponse
 
     @GET("users/{login}/following")
     fun getUserFollowing(

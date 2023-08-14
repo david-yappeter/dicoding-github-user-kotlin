@@ -3,8 +3,8 @@ package myplayground.example.githubsearch.adapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import myplayground.example.githubsearch.activities.FragmentUserFollowers
-import myplayground.example.githubsearch.activities.FragmentUserFollowing
+import myplayground.example.githubsearch.activities.detail.FragmentUserFollowers
+import myplayground.example.githubsearch.activities.detail.FragmentUserFollowing
 
 class SectionPagerAdapter(activity: AppCompatActivity, private val username: String) :
     FragmentStateAdapter(activity) {

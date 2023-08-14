@@ -4,153 +4,166 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.UserDetailActivity">
+    android:layout_height="match_parent">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/cv_user"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/tv_name"
-        style="@style/title1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="-20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cv_user"
-        app:layout_constraintStart_toEndOf="@+id/cv_user"
-        app:layout_constraintTop_toTopOf="@+id/cv_user"
-        tools:text="David Yappeter" />
-
-    <TextView
-        android:id="@+id/tv_username"
-        style="@style/subtitle1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/tv_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name"
-        tools:text="david-yappeter" />
-
-    <TextView
-        android:id="@+id/tv_location"
-        style="@style/text_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:drawableStart="@drawable/location"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintStart_toStartOf="@+id/cv_user"
-        app:layout_constraintTop_toBottomOf="@+id/cv_user"
-        tools:ignore="UseCompatTextViewDrawableXml"
-        tools:text="Location" />
-
-    <TextView
-        android:id="@+id/tv_blog"
-        style="@style/anchor1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autoLink="web"
-        android:drawableStart="@drawable/blog"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        android:minHeight="48dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_location"
-        app:layout_constraintTop_toBottomOf="@+id/tv_location"
-        tools:ignore="UseCompatTextViewDrawableXml"
-        tools:text="https://blog.com" />
-
-    <TextView
-        android:id="@+id/tv_bio"
-        style="@style/text_desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_blog"
-        app:layout_constraintTop_toBottomOf="@+id/tv_blog"
-        tools:ignore="UseCompatTextViewDrawableXml"
-        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce finibus scelerisque eros in rutrum. Sed sollicitudin finibus gravida. Donec urna velit, pharetra nec tortor a, hendrerit consequat neque. Quisque molestie nibh sit amet auctor bibendum. Praesent malesuada tincidunt scelerisque" />
-
-    <TextView
-        android:id="@+id/tv_followers"
-        style="@style/text_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:drawableStart="@drawable/follow"
-        android:drawablePadding="8dp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="@+id/tv_bio"
-        app:layout_constraintTop_toBottomOf="@+id/tv_bio"
-        tools:ignore="UseCompatTextViewDrawableXml"
-        tools:text="110" />
-
-    <TextView
-        android:id="@+id/tv_followers_label"
-        style="@style/text_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="@string/followers"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_followers"
-        app:layout_constraintStart_toEndOf="@+id/tv_followers"
-        app:layout_constraintTop_toTopOf="@+id/tv_followers" />
-
-    <TextView
-        android:id="@+id/tv_followings"
-        style="@style/text_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:drawableStart="@drawable/scatter_plot"
-        android:drawablePadding="8dp"
-        android:gravity="center"
-        android:minHeight="30dp"
-        app:layout_constraintStart_toEndOf="@+id/tv_followers_label"
-        app:layout_constraintTop_toTopOf="@+id/tv_followers"
-        tools:ignore="UseCompatTextViewDrawableXml"
-        tools:text="120" />
-
-    <TextView
-        style="@style/text_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="@string/followings"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_followings"
-        app:layout_constraintStart_toEndOf="@+id/tv_followings"
-        app:layout_constraintTop_toTopOf="@+id/tv_followings" />
-
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
+    <ScrollView
+        android:id="@+id/scroll_v"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/primary"
-        android:contentDescription="@string/user_tabs"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_followers"
-        app:tabTextColor="@color/white" />
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabs" />
+        app:layout_constraintStart_toStartOf=" parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cv_user"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="-20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cv_user"
+                app:layout_constraintStart_toEndOf="@+id/cv_user"
+                app:layout_constraintTop_toTopOf="@+id/cv_user"
+                tools:text="David Yappeter" />
+
+            <TextView
+                android:id="@+id/tv_username"
+                style="@style/subtitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/tv_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                tools:text="david-yappeter" />
+
+            <TextView
+                android:id="@+id/tv_location"
+                style="@style/text_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawableStart="@drawable/location"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                app:layout_constraintStart_toStartOf="@+id/cv_user"
+                app:layout_constraintTop_toBottomOf="@+id/cv_user"
+                tools:ignore="UseCompatTextViewDrawableXml"
+                tools:text="Location" />
+
+            <TextView
+                android:id="@+id/tv_blog"
+                style="@style/anchor1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:drawableStart="@drawable/blog"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:minHeight="48dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_location"
+                app:layout_constraintTop_toBottomOf="@+id/tv_location"
+                tools:ignore="UseCompatTextViewDrawableXml"
+                tools:text="https://blog.com" />
+
+            <TextView
+                android:id="@+id/tv_bio"
+                style="@style/text_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_blog"
+                app:layout_constraintTop_toBottomOf="@+id/tv_blog"
+                tools:ignore="UseCompatTextViewDrawableXml"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce finibus scelerisque eros in rutrum. Sed sollicitudin finibus gravida. Donec urna velit, pharetra nec tortor a, hendrerit consequat neque. Quisque molestie nibh sit amet auctor bibendum. Praesent malesuada tincidunt scelerisque" />
+
+            <TextView
+                android:id="@+id/tv_followers"
+                style="@style/text_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:drawableStart="@drawable/follow"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="@+id/tv_bio"
+                app:layout_constraintTop_toBottomOf="@+id/tv_bio"
+                tools:ignore="UseCompatTextViewDrawableXml"
+                tools:text="110" />
+
+            <TextView
+                android:id="@+id/tv_followers_label"
+                style="@style/text_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/followers"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_followers"
+                app:layout_constraintStart_toEndOf="@+id/tv_followers"
+                app:layout_constraintTop_toTopOf="@+id/tv_followers" />
+
+            <TextView
+                android:id="@+id/tv_followings"
+                style="@style/text_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:drawableStart="@drawable/scatter_plot"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:minHeight="30dp"
+                app:layout_constraintStart_toEndOf="@+id/tv_followers_label"
+                app:layout_constraintTop_toTopOf="@+id/tv_followers"
+                tools:ignore="UseCompatTextViewDrawableXml"
+                tools:text="120" />
+
+            <TextView
+                style="@style/text_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/followings"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_followings"
+                app:layout_constraintStart_toEndOf="@+id/tv_followings"
+                app:layout_constraintTop_toTopOf="@+id/tv_followings" />
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/primary"
+                android:contentDescription="@string/user_tabs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_followings"
+                app:tabTextColor="@color/white" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tabs" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
