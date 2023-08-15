@@ -27,7 +27,7 @@ import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFoc
 
 class SearchActivity : DrawerActivity() {
     private var _binding: ActivitySearchBinding? = null
-    private val binding = _binding!!
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         _binding = ActivitySearchBinding.inflate(layoutInflater)

@@ -14,7 +14,7 @@ import myplayground.example.githubsearch.models.User
 
 class UserDetailActivity : DrawerActivity() {
     private var _binding: ActivityUserDetailBinding? = null
-    private var binding = _binding!!
+    private val binding get() = _binding!!
 
     private lateinit var login: String
     private lateinit var avatarUrl: String
