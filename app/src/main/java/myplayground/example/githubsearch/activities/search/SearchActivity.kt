@@ -26,10 +26,11 @@ import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.RectangleProm
 import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFocal
 
 class SearchActivity : DrawerActivity() {
-    private lateinit var binding: ActivitySearchBinding
+    private var _binding: ActivitySearchBinding? = null
+    private val binding = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivitySearchBinding.inflate(layoutInflater)
+        _binding = ActivitySearchBinding.inflate(layoutInflater)
 
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -111,11 +112,8 @@ class SearchActivity : DrawerActivity() {
                         }
                     } else {
                         Toast.makeText(
-                            this@SearchActivity,
-                            "FAILED TO DO REQUEST",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
+                            this@SearchActivity, "FAILED TO DO REQUEST", Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             })
@@ -137,8 +135,7 @@ class SearchActivity : DrawerActivity() {
         binding.noData.visibility = View.VISIBLE
         binding.rvUsers.visibility = View.GONE
 
-        Toast.makeText(this@SearchActivity, "No user found", Toast.LENGTH_SHORT)
-            .show()
+        Toast.makeText(this@SearchActivity, "No user found", Toast.LENGTH_SHORT).show()
     }
 
     private fun shouldShowPrompt(): Boolean {
@@ -161,5 +158,11 @@ class SearchActivity : DrawerActivity() {
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putBoolean("prompt_shown", true)
         editor.apply()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        _binding = null
     }
 }

@@ -13,7 +13,8 @@ import myplayground.example.githubsearch.databinding.ActivityUserDetailBinding
 import myplayground.example.githubsearch.models.User
 
 class UserDetailActivity : DrawerActivity() {
-    private lateinit var binding: ActivityUserDetailBinding
+    private var _binding: ActivityUserDetailBinding? = null
+    private var binding = _binding!!
 
     private lateinit var login: String
     private lateinit var avatarUrl: String
@@ -25,7 +26,7 @@ class UserDetailActivity : DrawerActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityUserDetailBinding.inflate(layoutInflater)
+        _binding = ActivityUserDetailBinding.inflate(layoutInflater)
 
         login = intent.getStringExtra(INTENT_KEY_LOGIN)!!
         avatarUrl = intent.getStringExtra(INTENT_KEY_AVATAR_URL)!!
@@ -122,5 +123,11 @@ class UserDetailActivity : DrawerActivity() {
         super.onConfigurationChanged(newConfig)
 
         handleOrientationChanged(newConfig.orientation)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        _binding = null
     }
 }

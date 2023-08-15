@@ -36,7 +36,8 @@ class UserListAdapter(private val onClickListener: (user: User) -> Unit) :
         }
     }
 
-    inner class ViewHolder(itemView: View, val onClickListener: (user: User) -> Unit) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View, val onClickListener: (user: User) -> Unit) :
+        RecyclerView.ViewHolder(itemView) {
         fun bind(user: User) {
             Glide.with(itemView).load(user.avatar_url)
                 .into(itemView.findViewById<CircleImageView>(R.id.iv_user))

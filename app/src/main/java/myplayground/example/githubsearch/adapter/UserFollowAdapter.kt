@@ -10,10 +10,10 @@ import com.bumptech.glide.Glide
 import myplayground.example.githubsearch.R
 import myplayground.example.githubsearch.models.User
 
-class UserFollowAdapter: RecyclerView.Adapter<UserFollowAdapter.ViewHolder>() {
+class UserFollowAdapter : RecyclerView.Adapter<UserFollowAdapter.ViewHolder>() {
     private var listUserFollow: MutableList<User> = mutableListOf()
 
-    override fun getItemCount(): Int  = listUserFollow.size
+    override fun getItemCount(): Int = listUserFollow.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(listUserFollow[position])
@@ -34,7 +34,7 @@ class UserFollowAdapter: RecyclerView.Adapter<UserFollowAdapter.ViewHolder>() {
         }
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(user: User) {
             Glide.with(itemView).load(user.avatar_url).into(itemView.findViewById(R.id.iv_user))
             itemView.findViewById<TextView>(R.id.tv_name).text = user.login

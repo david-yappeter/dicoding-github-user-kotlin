@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Suppress("SameParameterValue")
 class NetworkConfig {
     companion object {
-        const val GITHUB_SERVICE_BASE_URL="https://api.github.com/"
+        const val GITHUB_SERVICE_BASE_URL = "https://api.github.com/"
 
         inline fun <reified T> create(baseUrl: String): T {
             val dotenvironment = dotenv {
@@ -36,8 +36,9 @@ class NetworkConfig {
                 chain.proceed(requestHeaders)
             }
 
-            val httpClient = OkHttpClient.Builder().addInterceptor(logging).addInterceptor(authInterceptor)
-                .build()
+            val httpClient =
+                OkHttpClient.Builder().addInterceptor(logging).addInterceptor(authInterceptor)
+                    .build()
 
             val retrofit: Retrofit = Retrofit.Builder().baseUrl(baseUrl)
                 .client(httpClient)

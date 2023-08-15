@@ -2,7 +2,7 @@ package myplayground.example.githubsearch.models
 
 import java.io.Serializable
 
-data class UserResponse (
+data class UserResponse(
     val id: String,
     val login: String,
     val avatar_url: String,
@@ -12,4 +12,4 @@ data class UserResponse (
     val blog: String?,
     val location: String?,
     val bio: String?,
-): Serializable
+) : Serializable

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 
 object SharedPreferencesManager {
-
     private const val PREF_NAME = "GithubUserPrefs"
 
     fun getSharedPrefs(context: Context): SharedPreferences {
