@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
     tools:context=".activities.splash.SplashScreen">
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/SplashScreenImage"
+        android:id="@+id/logo"
         android:layout_width="250dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"

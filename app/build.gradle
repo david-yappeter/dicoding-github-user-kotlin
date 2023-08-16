@@ -44,6 +44,7 @@ dependencies {
     def ktx_core_version = '1.10.1'
     def lottie_version = '6.1.0'
     def retrofit_version = '2.6.2'
+    def datastore_version = '1.0.0'
 
     // dotenv
     implementation 'io.github.cdimascio:dotenv-kotlin:6.4.1'
@@ -72,10 +73,15 @@ dependencies {
     // circle imageview
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    // ktx-core
     implementation "androidx.core:core-ktx:${ktx_core_version}"
+
+    // datastore
+    implementation "androidx.datastore:datastore-preferences:${datastore_version}"
 
     implementation 'androidx.activity:activity-ktx:1.7.2'
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
     kapt 'com.github.bumptech.glide:compiler:4.14.2'
     implementation 'com.github.bumptech.glide:glide:4.15.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'

@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,13 +21,17 @@ import myplayground.example.githubsearch.R
 import myplayground.example.githubsearch.activities.drawer.DrawerActivity
 import myplayground.example.githubsearch.activities.detail.UserDetailActivity
 import myplayground.example.githubsearch.activities.setting.SettingActivity
+import myplayground.example.githubsearch.activities.setting.SettingViewModel
+import myplayground.example.githubsearch.activities.setting.SettingViewModelFactory
 import myplayground.example.githubsearch.adapter.UserListAdapter
 import myplayground.example.githubsearch.databinding.ActivitySearchBinding
 import myplayground.example.githubsearch.models.User
 import myplayground.example.githubsearch.models.UserListResponse
 import myplayground.example.githubsearch.network.GithubService
 import myplayground.example.githubsearch.network.NetworkConfig
+import myplayground.example.githubsearch.util.SettingPreferences
 import myplayground.example.githubsearch.util.SharedPreferencesManager
+import myplayground.example.githubsearch.util.dataStore
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,13 +46,13 @@ class SearchActivity : DrawerActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         _binding = ActivitySearchBinding.inflate(layoutInflater)
 
+        checkTheme()
+
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        checkTheme()
         setupAdapter()
         setupSearchBar()
-
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
@@ -171,25 +176,25 @@ class SearchActivity : DrawerActivity() {
     }
 
     private fun checkTheme() {
-        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            // light mode
-            Configuration.UI_MODE_NIGHT_NO -> {
-                // set lottie idle animation tint overlay white
-                binding.idle.addValueCallback(
-                    KeyPath("**"), LottieProperty.COLOR_FILTER, LottieValueCallback(
-                        SimpleColorFilter(
-                            Color.parseColor("#000000")
-                        )
-                    )
-                )
-            }
-            // dark mode
-            Configuration.UI_MODE_NIGHT_YES -> {
-                // set lottie idle animation tint overlay white
+        val viewModel: SettingViewModel by viewModels {
+            val settingPref = SettingPreferences.getInstance(application.dataStore)
+            SettingViewModelFactory(settingPref)
+        }
+
+        viewModel.isDarkMode().observe(this) {isDarkMode ->
+            if(isDarkMode) {
                 binding.idle.addValueCallback(
                     KeyPath("**"), LottieProperty.COLOR_FILTER, LottieValueCallback(
                         SimpleColorFilter(
                             Color.parseColor("#FFFFFF")
+                        )
+                    )
+                )
+            } else {
+                binding.idle.addValueCallback(
+                    KeyPath("**"), LottieProperty.COLOR_FILTER, LottieValueCallback(
+                        SimpleColorFilter(
+                            Color.parseColor("#000000")
                         )
                     )
                 )

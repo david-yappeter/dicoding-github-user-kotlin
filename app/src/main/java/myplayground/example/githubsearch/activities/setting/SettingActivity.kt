@@ -1,12 +1,14 @@
 package myplayground.example.githubsearch.activities.setting
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
-import myplayground.example.githubsearch.R
+import myplayground.example.githubsearch.activities.detail.UserDetailViewModel
+import myplayground.example.githubsearch.activities.detail.UserDetailViewModelFactory
 import myplayground.example.githubsearch.activities.drawer.DrawerActivity
 import myplayground.example.githubsearch.databinding.ActivitySettingBinding
+import myplayground.example.githubsearch.util.SettingPreferences
+import myplayground.example.githubsearch.util.dataStore
 
 class SettingActivity : DrawerActivity() {
     private var _binding: ActivitySettingBinding? = null
@@ -20,18 +22,28 @@ class SettingActivity : DrawerActivity() {
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        binding.darkMode.setOnCheckedChangeListener { _, isChecked ->
-            binding.darkMode.isChecked = isChecked
+        setupViewModel()
 
-            Log.i("ASDASDASDASD", isChecked.toString())
+    }
 
-            if (isChecked) {
+    private fun setupViewModel() {
+        val viewModel: SettingViewModel by viewModels {
+            val settingPref = SettingPreferences.getInstance(application.dataStore)
+            SettingViewModelFactory(settingPref)
+        }
+
+        viewModel.isDarkMode().observe(this) {isDarkMode->
+            if (isDarkMode) {
+                binding.darkMode.isChecked = true
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                delegate.applyDayNight()
             } else {
+                binding.darkMode.isChecked = false
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                delegate.applyDayNight()
             }
+        }
+
+        binding.darkMode.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.setDarkMode(isChecked)
         }
     }
 
