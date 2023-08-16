@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.GithubSearch" parent="Theme.Material3.Dark">
+    <style name="Base.Theme.GithubSearch" parent="Theme.Material3.DayNight">
 
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/primary</item>
@@ -12,12 +12,23 @@
         <item name="android:textColorPrimary">@color/primary</item>
         <item name="android:textColorSecondary">@color/secondary</item>
 
+        <!--icon-->
+        <item name="homeAsUpIndicator">@drawable/arrow_back_dark</item>
+        <item name="android:drawableTint">@color/white</item>
+
+        <!--component-->
         <item name="actionBarStyle">@style/AppActionBarStyle</item>
         <item name="materialSearchBarStyle">@style/MaterialSearchBar</item>
     </style>
 
+    <style name="Base.Theme.GithubSearch.NoActionBar" parent="Base.Theme.GithubSearch">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <!--  appbar  -->
     <style name="AppActionBarStyle" parent="Widget.Material3.ActionBar.Solid">
+        <item name="background">@color/primary</item>
         <item name="titleTextStyle">@style/AppTitleTextStyle</item>
         <item name="subtitleTextStyle">@style/AppSubtitleTextStyle</item>
     </style>
@@ -35,8 +46,10 @@
 
     <!--  text appearance  -->
     <style name="text_label" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:drawableTint">@color/black</item>
     </style>
     <style name="text_desc" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:drawableTint">@color/black</item>
         <item name="android:textColor">@color/subtitle</item>
         <item name="fontFamily">sans-serif</item>
     </style>
@@ -44,10 +57,12 @@
     <style name="title1" parent="TextAppearance.Material3.TitleLarge">
     </style>
     <style name="subtitle1" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:drawableTint">@color/black</item>
         <item name="android:textColor">@color/subtitle</item>
     </style>
     <style name="anchor1" parent="TextAppearance.Material3.LabelLarge">
-        <item name="android:textColor">@color/link</item>
+        <item name="android:drawableTint">@color/black</item>
+        <item name="android:textColorLink">@color/link</item>
+        <item name="android:autoLink">web</item>
     </style>
-
 </resources>

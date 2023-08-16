@@ -6,4 +6,7 @@
     <string name="user_tabs">User Tabs</string>
     <string name="no_data">No Data</string>
     <string name="user_search_bar">User Search Bar</string>
+    <string name="settings">Settings</string>
+    <string name="favourite">Favourite</string>
+    <string name="dark_mode">Dark Mode</string>
 </resources>

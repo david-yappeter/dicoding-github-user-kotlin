@@ -144,7 +144,6 @@
                 app:layout_constraintStart_toEndOf="@+id/tv_followings"
                 app:layout_constraintTop_toTopOf="@+id/tv_followings" />
 
-
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"

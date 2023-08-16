@@ -1,6 +1,9 @@
 package myplayground.example.githubsearch.activities.drawer
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.drawerlayout.widget.DrawerLayout
 import myplayground.example.githubsearch.R
+import myplayground.example.githubsearch.activities.setting.SettingActivity
 
 open class DrawerActivity : AppCompatActivity() {
     private lateinit var fullLayout: DrawerLayout
@@ -26,6 +30,5 @@ open class DrawerActivity : AppCompatActivity() {
         // drawer content
         val actionbar = supportActionBar!!
         actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setBackgroundDrawable(ContextCompat.getColor(this, R.color.primary).toDrawable())
     }
 }

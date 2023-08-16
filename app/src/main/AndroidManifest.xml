@@ -15,6 +15,10 @@
         android:theme="@style/Base.Theme.GithubSearch"
         tools:targetApi="31">
         <activity
+            android:name=".activities.setting.SettingActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
+        <activity
             android:name=".activities.detail.UserDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false" />
@@ -26,7 +30,7 @@
             android:name=".activities.splash.SplashScreen"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="true"
-            android:theme="@style/Theme.Material3.Dark.NoActionBar">
+            android:theme="@style/Base.Theme.GithubSearch.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
