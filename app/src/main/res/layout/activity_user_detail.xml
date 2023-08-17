@@ -167,13 +167,14 @@
                 android:id="@+id/fav_fab"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                app:fabCustomSize="50dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/green"
+                android:contentDescription="@string/favourite_fab"
                 android:src="@drawable/favourite_border"
+                app:fabCustomSize="50dp"
                 app:layout_constraintBottom_toTopOf="@+id/tabs"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -3,8 +3,6 @@ package myplayground.example.githubsearch.activities.setting
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
-import myplayground.example.githubsearch.activities.detail.UserDetailViewModel
-import myplayground.example.githubsearch.activities.detail.UserDetailViewModelFactory
 import myplayground.example.githubsearch.activities.drawer.DrawerActivity
 import myplayground.example.githubsearch.databinding.ActivitySettingBinding
 import myplayground.example.githubsearch.util.SettingPreferences

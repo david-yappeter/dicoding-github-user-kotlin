@@ -1,12 +1,8 @@
 package myplayground.example.githubsearch.activities.detail
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import myplayground.example.githubsearch.activities.di.Injection
-import myplayground.example.githubsearch.activities.favourite.FavouriteUsersViewModelFactory
 import myplayground.example.githubsearch.repository.FavouriteUsersRepository
-import java.lang.IllegalArgumentException
 
 @Suppress("UNCHECKED_CAST")
 class UserDetailViewModelFactory(private val username: String, private val favouriteUsersRepository: FavouriteUsersRepository) : ViewModelProvider.NewInstanceFactory() {

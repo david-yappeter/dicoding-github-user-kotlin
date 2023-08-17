@@ -10,6 +10,6 @@ object Injection {
         val database = FavouriteUserRoomDatabase.getDatabase(context)
         val dao = database.favouriteUserDao()
         val appExecutors = AppExecutors()
-        return FavouriteUsersRepository(dao, appExecutors)
+        return FavouriteUsersRepository.getInstance(dao, appExecutors)
     }
 }

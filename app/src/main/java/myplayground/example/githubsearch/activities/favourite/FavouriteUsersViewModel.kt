@@ -2,7 +2,6 @@ package myplayground.example.githubsearch.activities.favourite
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import myplayground.example.githubsearch.database.FavouriteUserEntity
 import myplayground.example.githubsearch.repository.FavouriteUsersRepository

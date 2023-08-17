@@ -2,7 +2,6 @@ package myplayground.example.githubsearch.activities.search
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
@@ -18,8 +17,8 @@ import com.airbnb.lottie.SimpleColorFilter
 import com.airbnb.lottie.model.KeyPath
 import com.airbnb.lottie.value.LottieValueCallback
 import myplayground.example.githubsearch.R
-import myplayground.example.githubsearch.activities.drawer.DrawerActivity
 import myplayground.example.githubsearch.activities.detail.UserDetailActivity
+import myplayground.example.githubsearch.activities.drawer.DrawerActivity
 import myplayground.example.githubsearch.activities.favourite.FavouriteUsersActivity
 import myplayground.example.githubsearch.activities.setting.SettingActivity
 import myplayground.example.githubsearch.activities.setting.SettingViewModel
