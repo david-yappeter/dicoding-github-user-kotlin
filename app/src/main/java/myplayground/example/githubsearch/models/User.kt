@@ -1,5 +1,7 @@
 package myplayground.example.githubsearch.models
 
+import myplayground.example.githubsearch.database.FavouriteUserEntity
+
 data class User(
     val id: String,
     val login: String,
@@ -23,6 +25,20 @@ data class User(
                 blog = resp.blog,
                 location = resp.location,
                 bio = resp.bio,
+            )
+        }
+
+        fun fromFavouriteUserEntity(resp: FavouriteUserEntity): User {
+            return User(
+                id = resp.id ?: "",
+                login = resp.login ?: "",
+                avatar_url = resp.avatar_url ?: "",
+                name = "",
+                followers = 0,
+                following = 0,
+                blog = "",
+                location = "",
+                bio = "",
             )
         }
     }

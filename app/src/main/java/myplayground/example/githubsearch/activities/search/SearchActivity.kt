@@ -20,6 +20,7 @@ import com.airbnb.lottie.value.LottieValueCallback
 import myplayground.example.githubsearch.R
 import myplayground.example.githubsearch.activities.drawer.DrawerActivity
 import myplayground.example.githubsearch.activities.detail.UserDetailActivity
+import myplayground.example.githubsearch.activities.favourite.FavouriteUsersActivity
 import myplayground.example.githubsearch.activities.setting.SettingActivity
 import myplayground.example.githubsearch.activities.setting.SettingViewModel
 import myplayground.example.githubsearch.activities.setting.SettingViewModelFactory
@@ -181,8 +182,8 @@ class SearchActivity : DrawerActivity() {
             SettingViewModelFactory(settingPref)
         }
 
-        viewModel.isDarkMode().observe(this) {isDarkMode ->
-            if(isDarkMode) {
+        viewModel.isDarkMode().observe(this) { isDarkMode ->
+            if (isDarkMode) {
                 binding.idle.addValueCallback(
                     KeyPath("**"), LottieProperty.COLOR_FILTER, LottieValueCallback(
                         SimpleColorFilter(
@@ -209,8 +210,10 @@ class SearchActivity : DrawerActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
+        return when (item.itemId) {
             R.id.action_favourite -> {
+                val intent = Intent(this, FavouriteUsersActivity::class.java)
+                startActivity(intent)
                 true
             }
 

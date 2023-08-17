@@ -15,6 +15,9 @@
         android:theme="@style/Base.Theme.GithubSearch"
         tools:targetApi="31">
         <activity
+            android:name=".activities.favourite.FavouriteUsersActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.setting.SettingActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false" />
