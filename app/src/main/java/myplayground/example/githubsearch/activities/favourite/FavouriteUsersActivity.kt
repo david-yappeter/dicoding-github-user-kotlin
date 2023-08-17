@@ -16,6 +16,9 @@ import myplayground.example.githubsearch.models.User
 class FavouriteUsersActivity : AppCompatActivity() {
     private var _binding: ActivityFavouriteUsersBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: FavouriteUsersViewModel by viewModels {
+        FavouriteUsersViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         _binding = ActivityFavouriteUsersBinding.inflate(layoutInflater)
@@ -38,9 +41,11 @@ class FavouriteUsersActivity : AppCompatActivity() {
     private fun setupAdapter() {
         binding.rvUsers.adapter = UserListAdapter { user ->
             val intent = Intent(this@FavouriteUsersActivity, UserDetailActivity::class.java)
+            intent.putExtra(UserDetailActivity.INTENT_KEY_ID, user.id)
             intent.putExtra(UserDetailActivity.INTENT_KEY_LOGIN, user.login)
             intent.putExtra(UserDetailActivity.INTENT_KEY_AVATAR_URL, user.avatar_url)
             startActivity(intent)
+            viewModel.fetchAll()
         }
 
         binding.rvUsers.layoutManager = LinearLayoutManager(this@FavouriteUsersActivity)
@@ -54,21 +59,18 @@ class FavouriteUsersActivity : AppCompatActivity() {
     }
 
     private fun loadData() {
-        val viewModel: FavouriteUsersViewModel by viewModels {
-            FavouriteUsersViewModelFactory.getInstance(this)
-        }
-
         viewModel.fetchAll().observe(this) { favouriteUsers ->
             setLoadingAnimation(true)
-            if (favouriteUsers.isEmpty()) {
+            if (favouriteUsers == null || favouriteUsers.isEmpty()) {
                 setNotData()
-            } else {
-                (binding.rvUsers.adapter as UserListAdapter?)?.apply {
-                    this.setData(favouriteUsers.map { User.fromFavouriteUserEntity(it) })
-                }
+            }
+            (binding.rvUsers.adapter as UserListAdapter?)?.apply {
+                this.setData(favouriteUsers.map { User.fromFavouriteUserEntity(it) })
             }
             setLoadingAnimation(false)
         }
+
+        viewModel.fetchAll()
     }
 
 
@@ -88,6 +90,11 @@ class FavouriteUsersActivity : AppCompatActivity() {
         binding.rvUsers.visibility = View.GONE
 
         Toast.makeText(this@FavouriteUsersActivity, "No data", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 
     override fun onDestroy() {

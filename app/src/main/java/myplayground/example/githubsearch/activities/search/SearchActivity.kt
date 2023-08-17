@@ -67,6 +67,7 @@ class SearchActivity : DrawerActivity() {
         with(binding) {
             rvUsers.adapter = UserListAdapter { user ->
                 val intent = Intent(this@SearchActivity, UserDetailActivity::class.java)
+                intent.putExtra(UserDetailActivity.INTENT_KEY_ID, user.id)
                 intent.putExtra(UserDetailActivity.INTENT_KEY_LOGIN, user.login)
                 intent.putExtra(UserDetailActivity.INTENT_KEY_AVATAR_URL, user.avatar_url)
                 startActivity(intent)

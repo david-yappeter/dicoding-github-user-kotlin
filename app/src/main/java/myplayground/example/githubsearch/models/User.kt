@@ -30,7 +30,7 @@ data class User(
 
         fun fromFavouriteUserEntity(resp: FavouriteUserEntity): User {
             return User(
-                id = resp.id ?: "",
+                id = resp.id,
                 login = resp.login ?: "",
                 avatar_url = resp.avatar_url ?: "",
                 name = "",

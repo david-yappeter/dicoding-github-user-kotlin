@@ -1,14 +1,19 @@
 package myplayground.example.githubsearch.activities.detail
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import myplayground.example.githubsearch.R
+import myplayground.example.githubsearch.activities.di.Injection
 import myplayground.example.githubsearch.activities.drawer.DrawerActivity
 import myplayground.example.githubsearch.adapter.SectionPagerAdapter
+import myplayground.example.githubsearch.database.FavouriteUserEntity
 import myplayground.example.githubsearch.databinding.ActivityUserDetailBinding
 import myplayground.example.githubsearch.models.User
 
@@ -16,11 +21,21 @@ class UserDetailActivity : DrawerActivity() {
     private var _binding: ActivityUserDetailBinding? = null
     private val binding get() = _binding!!
 
+
+    private val viewModel: UserDetailViewModel by viewModels {
+        UserDetailViewModelFactory(login, Injection.provideFavouriteUsersRepository(this))
+    }
+
+    private lateinit var id: String
     private lateinit var login: String
     private lateinit var avatarUrl: String
     private var user: User? = null
+    private var favouriteUser: FavouriteUserEntity? = null
+    private var isFavourite = false
+
 
     companion object {
+        const val INTENT_KEY_ID = "USER_DETAIL_ID"
         const val INTENT_KEY_LOGIN = "USER_DETAIL_LOGIN"
         const val INTENT_KEY_AVATAR_URL = "USER_DETAIL_AVATAR_URL"
     }
@@ -28,8 +43,14 @@ class UserDetailActivity : DrawerActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         _binding = ActivityUserDetailBinding.inflate(layoutInflater)
 
+        id = intent.getStringExtra(INTENT_KEY_ID)!!
         login = intent.getStringExtra(INTENT_KEY_LOGIN)!!
         avatarUrl = intent.getStringExtra(INTENT_KEY_AVATAR_URL)!!
+        favouriteUser = FavouriteUserEntity(
+            id = id,
+            login = login,
+            avatar_url = avatarUrl,
+        )
 
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -38,16 +59,46 @@ class UserDetailActivity : DrawerActivity() {
         changeAppbarTitle(login.lowercase().replaceFirstChar { it.titlecase() })
         handleOrientationChanged(this.resources.configuration.orientation)
         fillView()
-        loadTab()
 
+        addFab()
+
+
+        loadTab()
         loadData()
     }
 
-    private fun loadData() {
-        val viewModel: UserDetailViewModel by viewModels {
-            UserDetailViewModelFactory(login)
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun addFab() {
+        viewModel.getFavouriteUserById(id).observe(this) { favouriteUser ->
+            isFavourite = favouriteUser != null
+
+            if (favouriteUser == null) {
+                binding.favFab.setImageDrawable(resources.getDrawable(R.drawable.favourite_border, null))
+            } else {
+                binding.favFab.setImageDrawable(resources.getDrawable(R.drawable.favourite_filled, null))
+            }
         }
 
+        binding.favFab.setOnClickListener {
+            if (isFavourite) {
+                viewModel.deleteFavouriteUser(favouriteUser!!)
+                Toast.makeText(
+                    this@UserDetailActivity,
+                    "${favouriteUser!!.login} telah dihapus dari User Favorit",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                viewModel.insertFavouriteUser(favouriteUser!!)
+                Toast.makeText(
+                    this@UserDetailActivity,
+                    "${favouriteUser!!.login} telah ditambahkan dari User Favorit",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun loadData() {
         viewModel.user.observe(this@UserDetailActivity) { userObs ->
             if (userObs != null) {
                 user = userObs

@@ -20,6 +20,8 @@ class FavouriteUsersRepository(
         appExecutor.diskIO.execute { favouriteUserDao.delete(favouriteUser) }
     }
 
+    fun getById(id: String): LiveData<FavouriteUserEntity?> = favouriteUserDao.getById(id)
+
 
     companion object {
         @Volatile

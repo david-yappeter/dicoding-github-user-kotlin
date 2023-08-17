@@ -17,4 +17,7 @@ interface FavouriteUserDao {
 
     @Query("SELECT * FROM favourite_users")
     fun fetchAll(): LiveData<List<FavouriteUserEntity>>
+
+    @Query("SELECT * FROM favourite_users WHERE id = :id")
+    fun getById(id: String): LiveData<FavouriteUserEntity?>
 }
